@@ -1,0 +1,47 @@
+# Environment variables with sensitive data
+.env
+.env.local
+.env.*.local
+
+# Docker volumes and data
+data/
+backup/
+config/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# SSL/TLS certificates and keys (if stored locally)
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Node modules (if applicable)
+node_modules/

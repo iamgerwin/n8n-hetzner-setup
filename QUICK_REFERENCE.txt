@@ -1,0 +1,179 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                   NAMECHEAP + N8N SETUP - QUICK REFERENCE                  ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📋 YOUR DETAILS:
+   Domain: usisa.store
+   Server IP: 77.42.19.179
+   Email: admin@usisa.store
+   Port: 9999
+
+═════════════════════════════════════════════════════════════════════════════
+
+🔑 DNS SETTINGS IN NAMECHEAP:
+
+Type    Host    Value           TTL
+────────────────────────────────────────────
+A       @       77.42.19.179    3600
+A       www     77.42.19.179    3600  [Optional]
+
+═════════════════════════════════════════════════════════════════════════════
+
+✅ VERIFICATION COMMANDS:
+
+# Check DNS propagated (run on your computer):
+$ dig usisa.store
+$ nslookup usisa.store
+
+Expected: Shows "77.42.19.179"
+
+═════════════════════════════════════════════════════════════════════════════
+
+🌐 TEST URLS IN ORDER:
+
+1. After DNS propagated:
+   http://usisa.store:9999          ← Should load n8n
+
+2. After HTTPS setup:
+   https://usisa.store:9999         ← Should show lock icon 🔒
+
+═════════════════════════════════════════════════════════════════════════════
+
+🔒 HTTPS SETUP COMMANDS (On Server):
+
+# Get certificate:
+sudo certbot certonly \
+  --standalone \
+  --agree-tos \
+  --no-eff-email \
+  --email admin@usisa.store \
+  -d usisa.store
+
+# Enable HTTPS in n8n:
+cd /home/sites/n8n
+sudo cp config/nginx-ssl.conf config/nginx.conf
+docker-compose restart nginx n8n
+
+# Verify running:
+docker-compose ps
+
+═════════════════════════════════════════════════════════════════════════════
+
+⏱️ TIMELINE:
+
+   Step 1 (DNS):           5 min
+   Wait (DNS propagation): 5-15 min
+   Test HTTP:              1 min
+   Step 2 (Certificate):   2 min
+   Step 3 (Enable HTTPS):  1 min
+   Test HTTPS:             1 min
+   ────────────────────────────────
+   Total:                  15-25 min
+
+═════════════════════════════════════════════════════════════════════════════
+
+🚨 TROUBLESHOOTING:
+
+Problem                 | Solution
+────────────────────────────────────────────────────────────────────────
+DNS not working         | Wait 5-10 min, verify A record in Namecheap
+Certbot fails           | Wait for DNS, check: dig usisa.store
+Port not accessible    | Check firewall: sudo ufw allow 80, 443, 9999
+Nginx won't start       | Check logs: docker-compose logs nginx
+Certificate not found   | Run certbot command again
+HTTPS certificate error | Clear browser cache, try incognito mode
+
+═════════════════════════════════════════════════════════════════════════════
+
+📁 IMPORTANT FILES:
+
+/home/sites/n8n/config/nginx.conf           (Current HTTP config)
+/home/sites/n8n/config/nginx-ssl.conf       (HTTPS config - use after cert)
+/home/sites/n8n/.env                        (n8n configuration)
+/home/sites/n8n/docker-compose.yml          (Docker setup)
+/etc/letsencrypt/live/usisa.store/          (Your certificates)
+
+═════════════════════════════════════════════════════════════════════════════
+
+🔄 AUTO-RENEWAL SETUP:
+
+sudo crontab -e
+
+Add this line:
+0 2 * * * certbot renew --quiet && docker-compose -f /home/sites/n8n/docker-compose.yml restart nginx
+
+This runs daily at 2 AM and auto-renews certificates 30 days before expiration.
+
+═════════════════════════════════════════════════════════════════════════════
+
+📞 COMMAND REFERENCE:
+
+# SSH to server
+ssh root@77.42.19.179
+
+# Check DNS
+dig usisa.store
+nslookup usisa.store
+
+# Check certificates
+sudo certbot certificates
+sudo ls -la /etc/letsencrypt/live/usisa.store/
+
+# Check n8n services
+cd /home/sites/n8n
+docker-compose ps
+docker-compose logs nginx
+docker-compose logs n8n
+
+# Restart services
+docker-compose restart
+
+# Test HTTPS
+curl -I https://usisa.store:9999
+openssl s_client -connect usisa.store:443
+
+# Check ports open
+sudo netstat -tuln | grep -E "80|443|9999"
+sudo ufw status
+
+═════════════════════════════════════════════════════════════════════════════
+
+📖 FULL GUIDES:
+
+1. NAMECHEAP_SETUP_GUIDE.md      ← Detailed Namecheap + Certbot steps
+2. NAMECHEAP_VISUAL_GUIDE.txt    ← Visual step-by-step with screenshots
+3. HTTPS_SETUP.md                 ← Complete technical documentation
+4. README.md                       ← General n8n documentation
+
+═════════════════════════════════════════════════════════════════════════════
+
+✨ SUCCESS INDICATORS:
+
+After complete setup, you should see:
+
+   ✓ DNS resolves: dig usisa.store → 77.42.19.179
+   ✓ HTTP works: http://usisa.store:9999 loads n8n
+   ✓ Certificate obtained: /etc/letsencrypt/live/usisa.store/
+   ✓ HTTPS works: https://usisa.store:9999 with lock icon 🔒
+   ✓ Green lock: Browser shows "usisa.store" in green
+   ✓ n8n runs: Can access admin panel and create workflows
+   ✓ Services healthy: docker-compose ps shows all "Up"
+
+═════════════════════════════════════════════════════════════════════════════
+
+🎯 NEXT STEPS AFTER SETUP:
+
+1. Create admin account in n8n
+2. Set up backup script: make backup
+3. Enable auto-renewal (see above)
+4. Configure firewall rules
+5. Create your first workflow
+6. Invite team members
+7. Monitor and maintain
+
+═════════════════════════════════════════════════════════════════════════════
+
+This is your n8n instance's permanent home. Update as needed, automate with
+scripts, and keep your SSL certificate renewed. You're all set! 🚀
+
+═════════════════════════════════════════════════════════════════════════════

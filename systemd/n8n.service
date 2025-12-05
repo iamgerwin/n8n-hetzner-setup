@@ -1,0 +1,15 @@
+[Unit]
+Description=n8n Self-Hosted Automation
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/home/sites/n8n
+ExecStart=/usr/bin/docker-compose -f /home/sites/n8n/docker-compose.yml up -d
+ExecStop=/usr/bin/docker-compose -f /home/sites/n8n/docker-compose.yml down
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

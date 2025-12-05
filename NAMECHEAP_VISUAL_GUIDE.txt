@@ -1,0 +1,406 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║            NAMECHEAP DOMAIN SETUP - VISUAL STEP-BY-STEP GUIDE              ║
+║                 For usisa.store → n8n Docker Instance                      ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+🔍 WHAT YOU NEED:
+   ✓ Namecheap account (already have domain usisa.store)
+   ✓ Server IP: 77.42.19.179
+   ✓ Browser (Chrome, Firefox, Safari, Edge)
+   ✓ Terminal/Command Prompt (for verification)
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 1: ACCESS NAMECHEAP DASHBOARD
+═════════════════════════════════════════════════════════════════════════════
+
+Step 1.1: Visit Namecheap
+   └─ Go to: https://www.namecheap.com/
+   └─ You should see the Namecheap homepage
+
+Step 1.2: Click Sign In
+   └─ Look for "Sign In" button in top-right corner
+   └─ Click it
+
+Step 1.3: Enter Your Credentials
+   └─ Email/Username: [Your Namecheap email]
+   └─ Password: [Your Namecheap password]
+   └─ Click "Sign In"
+
+Result: You're now logged into Namecheap dashboard
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 2: FIND YOUR DOMAIN
+═════════════════════════════════════════════════════════════════════════════
+
+Step 2.1: Navigate to Domain List
+   └─ Look at the LEFT MENU or top navigation
+   └─ Find and click: "Domain List"
+   └─ Or look for: "My Domains", "Manage Domains", "Domain Management"
+
+Step 2.2: Locate usisa.store
+   └─ You should see a list of your domains
+   └─ Find "usisa.store" in the list
+   └─ It might look like:
+   
+      ┌──────────────────────────────────────┐
+      │ ☐ usisa.store                        │
+      │    Status: Active                    │
+      │    Expires: [date]                   │
+      │    [Manage] [Edit] [More]            │
+      └──────────────────────────────────────┘
+
+Step 2.3: Click on Your Domain
+   └─ Click "usisa.store" (the domain name itself)
+   └─ NOT the checkbox, NOT "Manage" yet
+   └─ This opens the domain details page
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 3: ACCESS DNS SETTINGS
+═════════════════════════════════════════════════════════════════════════════
+
+Step 3.1: Find DNS Section
+   └─ On the domain management page, look for:
+   └─ "Nameservers"
+   └─ "DNS Settings"
+   └─ "Advanced DNS"
+   └─ It's usually in the left menu or as a tab
+
+Step 3.2: You'll see options like:
+   
+   ┌─────────────────────────────────────┐
+   │ Namecheap BasicDNS (Default)   [✓] │
+   │ Namecheap PremiumDNS               │
+   │ Custom DNS                          │
+   └─────────────────────────────────────┘
+
+Step 3.3: Keep "Namecheap BasicDNS" selected
+   └─ This is the default option
+   └─ It should already be selected ✓
+   └─ Look for "Manage" or "Advanced DNS" button
+   └─ Click it to manage DNS records
+
+Step 3.4: Click "Advanced DNS" or "Manage"
+   └─ This opens the DNS Records editor
+   └─ You'll see existing DNS records
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 4: ADD YOUR A RECORD
+═════════════════════════════════════════════════════════════════════════════
+
+Step 4.1: You'll see a table like:
+
+   ┌────────┬───────┬──────────┬──────────────────┬─────┐
+   │ Type   │ Host  │ Value    │ TTL              │ Del │
+   ├────────┼───────┼──────────┼──────────────────┼─────┤
+   │ A      │ @     │ (empty)  │ 3600 (Automatic) │ X   │
+   │ CNAME  │ www   │ @        │ 3600 (Automatic) │ X   │
+   │ MX     │ @     │ aspmx... │ 3600 (Automatic) │ X   │
+   └────────┴───────┴──────────┴──────────────────┴─────┘
+
+Step 4.2: Find the Empty A Record Row
+   └─ Look for a row with:
+      - Type: A
+      - Host: @
+      - Value: (empty field)
+
+Step 4.3: Click in the Value Field
+   └─ In the A record row (Type=A, Host=@)
+   └─ Find the "Value" column
+   └─ Click in the empty field
+
+Step 4.4: Enter Your Server IP
+   └─ Type: 77.42.19.179
+   └─ Make sure it's correct (copy/paste recommended)
+
+Step 4.5: Your row should now look like:
+
+   ┌────────┬───────┬───────────────┬──────────────────┐
+   │ Type   │ Host  │ Value         │ TTL              │
+   ├────────┼───────┼───────────────┼──────────────────┤
+   │ A      │ @     │ 77.42.19.179  │ 3600 (Automatic) │
+   └────────┴───────┴───────────────┴──────────────────┘
+
+Step 4.6: Save Changes
+   └─ Look for "Save All Changes" button (usually bottom right)
+   └─ Click it
+   └─ You might see "Changes saved successfully"
+
+Result: DNS record is now added!
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 5: (OPTIONAL) ADD WWW SUBDOMAIN
+═════════════════════════════════════════════════════════════════════════════
+
+If you want www.usisa.store to work:
+
+Step 5.1: Look for Add Record Option
+   └─ You should see "Add Record" button
+   └─ Click it
+
+Step 5.2: Configure WWW Record
+   └─ Type: A (select from dropdown)
+   └─ Host: www
+   └─ Value: 77.42.19.179
+   └─ TTL: 3600 (or leave as default)
+
+Step 5.3: Save Changes
+   └─ Click "Save All Changes"
+
+Result: www.usisa.store also points to your server
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 6: WAIT FOR DNS PROPAGATION
+═════════════════════════════════════════════════════════════════════════════
+
+DNS changes take time to spread worldwide:
+
+Timeline:
+   └─ 0-1 minute:      Changes saved to Namecheap servers
+   └─ 1-5 minutes:     Your ISP's DNS caches update
+   └─ 5-15 minutes:    Most global DNS resolvers update
+   └─ 15-48 hours:     All global systems update (rare)
+
+During this time:
+   ⏳ Domain might not work in browser yet
+   ⏳ That's NORMAL - just wait
+   ⏳ Don't change anything else
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 7: VERIFY DNS IS WORKING
+═════════════════════════════════════════════════════════════════════════════
+
+Wait 5-15 minutes, then check if DNS is propagated.
+
+On Mac/Linux/Windows with Terminal:
+
+Step 7.1: Open Terminal/Command Prompt
+   └─ Windows: Press Win+R, type "cmd", press Enter
+   └─ Mac: Press Cmd+Space, type "terminal", press Enter
+   └─ Linux: Open Terminal
+
+Step 7.2: Run this command:
+
+   $ dig usisa.store
+
+   (Windows users: type "nslookup usisa.store" instead)
+
+Step 7.3: Look for this line in output:
+
+   usisa.store.        3600    IN  A       77.42.19.179
+   ^^^^^^^^^^^^^^                      ^^^^^^^^^^^^^^
+   Your domain                         Your server IP
+
+Step 7.4: Verify the IP matches: 77.42.19.179
+   ✓ If it matches: DNS is working! Continue to next step.
+   ✗ If it doesn't match: Wait 5 more minutes and try again.
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 8: TEST HTTP ACCESS
+═════════════════════════════════════════════════════════════════════════════
+
+Now that DNS works, test HTTP access:
+
+Step 8.1: Open Your Browser
+   └─ Chrome, Firefox, Safari, Edge - any browser works
+   └─ Go to Address Bar
+
+Step 8.2: Type the URL
+
+   http://usisa.store:9999
+
+   (Note the "http://" prefix and ":9999" port)
+
+Step 8.3: Press Enter
+   └─ Wait a few seconds
+   └─ You should see n8n interface loading
+
+Step 8.4: Verify n8n Appears
+   └─ ✓ If you see n8n setup page: HTTP works!
+   └─ ✗ If you see "connection error": Check firewall, wait longer
+
+Result: HTTP access verified!
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 9: GET HTTPS CERTIFICATE (ON SERVER)
+═════════════════════════════════════════════════════════════════════════════
+
+Now set up HTTPS security certificate. SSH to your server and run:
+
+Step 9.1: SSH to Your Server
+   $ ssh root@77.42.19.179
+   (Enter your server password when prompted)
+
+Step 9.2: Run Certbot to Get Certificate
+   $ sudo certbot certonly \
+       --standalone \
+       --agree-tos \
+       --no-eff-email \
+       --email admin@usisa.store \
+       -d usisa.store
+
+   (Copy the entire command, including line breaks)
+
+Step 9.3: What happens:
+   └─ Certbot contacts Let's Encrypt
+   └─ Verifies you own usisa.store
+   └─ Issues free 90-day certificate
+   └─ Saves to /etc/letsencrypt/live/usisa.store/
+
+Step 9.4: Wait for Success Message
+   ✓ Look for: "Successfully received certificate"
+   ✓ Should see paths:
+      Certificate: /etc/letsencrypt/live/usisa.store/fullchain.pem
+      Key: /etc/letsencrypt/live/usisa.store/privkey.pem
+
+Result: HTTPS certificate obtained!
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 10: ENABLE HTTPS IN N8N (ON SERVER)
+═════════════════════════════════════════════════════════════════════════════
+
+Step 10.1: Go to n8n Directory
+   $ cd /home/sites/n8n
+
+Step 10.2: Switch to SSL Configuration
+   $ sudo cp config/nginx-ssl.conf config/nginx.conf
+
+Step 10.3: Restart Services
+   $ docker-compose restart nginx n8n
+
+Step 10.4: Wait for Services to Start
+   └─ Wait 5-10 seconds
+   └─ Services will restart with HTTPS enabled
+
+Step 10.5: Verify Services Are Running
+   $ docker-compose ps
+   
+   You should see:
+   n8n-main      Up (healthy)
+   n8n-nginx     Up
+   n8n-postgres  Up (healthy)
+   n8n-redis     Up (healthy)
+   n8n-worker    Up
+
+Result: HTTPS is now enabled!
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 11: TEST HTTPS ACCESS
+═════════════════════════════════════════════════════════════════════════════
+
+Step 11.1: Open Browser Again
+   └─ Same browser as before
+   └─ Go to Address Bar
+
+Step 11.2: Type HTTPS URL
+
+   https://usisa.store:9999
+
+   (Note: "https://" with "s" - NOT "http://")
+
+Step 11.3: Press Enter
+   └─ Wait a few seconds
+   └─ Browser connects securely
+
+Step 11.4: Check for Green Lock Icon
+   ✓ You should see:
+      - Green lock icon 🔒
+      - "usisa.store" with green
+      - n8n interface
+
+Step 11.5: If You See Certificate Warning
+   └─ This is normal for fresh certificates
+   └─ Click "Advanced" or "Details"
+   └─ Click "Proceed" or "Continue anyway"
+   └─ Warning should disappear after 5 minutes
+
+Result: HTTPS is working!
+
+═════════════════════════════════════════════════════════════════════════════
+
+PART 12: COMPLETE N8N SETUP
+═════════════════════════════════════════════════════════════════════════════
+
+Step 12.1: At https://usisa.store:9999, Complete Setup
+   └─ Enter admin email
+   └─ Create admin password
+   └─ Enter instance name
+   └─ Click "Start" or "Complete Setup"
+
+Step 12.2: Create Your First Workflow
+   └─ Click "Create Workflow"
+   └─ Add some nodes
+   └─ Save the workflow
+   └─ Test it works
+
+Result: n8n is now fully set up with HTTPS!
+
+═════════════════════════════════════════════════════════════════════════════
+
+✅ FINAL CHECKLIST
+═════════════════════════════════════════════════════════════════════════════
+
+After completing all steps, verify everything works:
+
+   [ ] Domain usisa.store resolves to 77.42.19.179
+   [ ] HTTP access works: http://usisa.store:9999
+   [ ] HTTPS certificate obtained
+   [ ] HTTPS access works: https://usisa.store:9999
+   [ ] Green lock icon visible
+   [ ] n8n setup wizard completed
+   [ ] Can create and run workflows
+   [ ] DNS A record added in Namecheap
+   [ ] Port 9999 accessible from internet
+   [ ] Port 443 (HTTPS) working
+
+═════════════════════════════════════════════════════════════════════════════
+
+🚀 SUCCESS! YOUR N8N IS NOW LIVE WITH HTTPS
+═════════════════════════════════════════════════════════════════════════════
+
+Your n8n instance is now:
+   ✓ Accessible via: https://usisa.store:9999
+   ✓ Secured with HTTPS
+   ✓ Running on your own domain
+   ✓ Protected with Let's Encrypt certificate
+   ✓ Ready for production workflows
+
+═════════════════════════════════════════════════════════════════════════════
+
+📚 NEXT STEPS:
+   1. Set up auto-renewal (see NAMECHEAP_SETUP_GUIDE.md)
+   2. Configure backups (see /home/sites/n8n/README.md)
+   3. Add your workflows
+   4. Invite team members
+   5. Monitor and maintain
+
+═════════════════════════════════════════════════════════════════════════════
+
+❓ NEED HELP?
+═════════════════════════════════════════════════════════════════════════════
+
+For detailed troubleshooting, see:
+   - NAMECHEAP_SETUP_GUIDE.md (Troubleshooting section)
+   - HTTPS_SETUP.md (Complete technical guide)
+   - README.md (General documentation)
+
+Common issues and solutions are documented in those files.
+
+═════════════════════════════════════════════════════════════════════════════
+
+Ready? Start with PART 1 above!
+
+Generated: 2025-12-05
+Domain: usisa.store
+Server: 77.42.19.179
+Status: Ready for setup
