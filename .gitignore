@@ -6,7 +6,11 @@
 # Docker volumes and data
 data/
 backup/
-config/
+
+# Config directory (except templates)
+config/*
+!config/nginx.conf.template
+!config/init-data.sh
 
 # Logs
 *.log
