@@ -40,7 +40,7 @@ services:
   n8n:
     # Pinned to 1.123.5 - includes fix for insights reporting bug in queue mode (v1.122.0+)
     # See: https://community.n8n.io/t/insights-reporting-bug-for-queue-mode-users-on-v1-100-0/223571
-    image: n8nio/n8n:1.123.5
+    image: n8nio/n8n:2.0.3
     container_name: n8n-main
     restart: always
     user: '1000:1000'
@@ -87,7 +87,7 @@ services:
 
   n8n-worker:
     # Must match main n8n version
-    image: n8nio/n8n:1.123.5
+    image: n8nio/n8n:2.0.3
     container_name: n8n-worker
     restart: always
     user: '1000:1000'
